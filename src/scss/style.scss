@@ -1,0 +1,64 @@
+// reset
+@import "reset";
+//fonts
+@import "fonts";
+//variables
+@import "variables";
+//svg
+@import "components/sprite";
+//video
+@import "components/video";
+//------------------------------------------------------//
+body {
+    //background-color: $background-color;
+    //color: $text-color;
+    //font-family: Montserrat, sans-serif;
+    //Размер шрифта в % от 10px
+    //font-size: 140%;
+    //font-weight: 500;
+
+}
+
+//------------------------------------------------------//
+.wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+    min-height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+._container {
+    max-width: 1076px;
+    padding: 0 15px;
+    margin: 0 auto;
+    // box-sizing: content-box;
+}
+
+._ibg {
+    position: relative;
+}
+
+._ibg img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+//@media (max-width: 1439.98px) {
+//    ._ibg img {
+//        object-fit: cover;
+//        object-position: right;
+//    }
+//}
+
+//------Main-------------------------------------------------
+.main {
+    flex: 1 1 auto;
+}
+
+//------------------------------------------------------------
+@import "components/footer";

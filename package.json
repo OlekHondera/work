@@ -1,0 +1,50 @@
+{
+  "private": true,
+  "scripts": {
+    "start": "gulp",
+    "sprite": "gulp sprite",
+    "clean": "gulp clean"
+  },
+  "browserslist": [
+    "last 2 version",
+    "not dead",
+    "not ie <= 11",
+    "iOS >=12"
+  ],
+  "dependencies": {
+    "gulp-cli": "^2.3.0",
+    "npm": "^8.1.2",
+    "pug": "^3.0.2",
+    "sass": "^1.43.4",
+    "slick-carousel": "^1.8.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "autoprefixer": "^10.4.0",
+    "browser-sync": "^2.27.7",
+    "del": "^6.0.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-cheerio": "^1.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-gzip": "^1.4.2",
+    "gulp-if": "^3.0.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^9.0.1",
+    "gulp-pug": "^5.0.0",
+    "gulp-replace": "^1.1.3",
+    "gulp-sass": "^5.0.0",
+    "gulp-svg-sprite": "^1.5.0",
+    "gulp-svgmin": "^4.1.0",
+    "gulp-terser": "^2.1.0",
+    "gulp-ttf2woff2": "^4.0.1",
+    "laravel-mix": "^6.0.37",
+    "postcss": "^8.3.11",
+    "postcss-csso": "^5.0.1",
+    "postcss-media-minmax": "^5.0.0",
+    "postcss-sort-media-queries": "^4.1.0",
+    "svg4everybody": "^2.1.9",
+    "svgo": "^2.7.0"
+  }
+}

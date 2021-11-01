@@ -1,0 +1,3 @@
+//- responsive fonts
+
+font-size: calc(24px + 16 * ((100vw - 320px) / (1280 - 320)));

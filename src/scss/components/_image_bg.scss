@@ -1,0 +1,64 @@
+/*-----Feature--------*/
+.feature {
+    /*Ссылка вся картинка*/
+    position: relative;
+    /*Ссылка вся картинка-end*/
+    //display: grid;
+    //align-items: end;
+    ///*--Background-image------*/
+    /* Fallback */
+    background-image:
+        url("img/jpg@1x.jpg");
+    /* Chrome/Opera/, will fallback to this as well */
+    background-image:
+        -webkit-image-set(
+                url("img/avif@2x.avif") 2x,
+                url("img/avif@1x.avif") 1x,
+                url("img/webp@2x.webp") 2x,
+                url("img/webp@1x.webp") 1x);
+    /*----Safari/Firefox use ------*/
+    background-image:
+        image-set(
+                url("img/webp@2x.webp") 2x,
+                url("img/webp@1x.webp") 1x,
+                url("img/jpg2x.jpg") 2x,
+                url("img/jpg@1x.jpg") 1x);
+    /*--Background-image-End-----*/
+    /*-No resize--сохранение пропорций при ресайзе----*/
+    //max-width: 500px;
+    //aspect-ratio: 1/1;
+    ///*-No resize--сохранение пропорций при ресайзе-End*/
+    //background-size: cover;
+}
+
+//.feature__title {
+//    margin: 0;
+//    font-weight: normal;
+//    padding: 0.7em;
+//    line-height: 0.8;
+//    font-size: 50px;
+//}
+//
+//.feature__link {
+//    color: #FFFFFF;
+//    text-decoration: none;
+//}
+///*Ссылка вся картинка*/
+//.feature__link::before{
+//    position:absolute;
+//    left:0;
+//    right: 0;
+//    top:0;
+//    bottom: 0;
+//    content: '';
+//}
+///*Ссылка вся картинка - End*/
+///*Focus на всю картинку*/
+//.feature__link:focus-visible{
+//    outline: none;
+//}
+//.feature__link:focus-visible::before{
+//    outline: 5px solid deepskyblue;
+//    outline-offset: -5px;
+//}
+///*Focus на всю картинку - End*/
