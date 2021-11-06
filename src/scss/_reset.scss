@@ -26,6 +26,10 @@ body {
     height: 100%;
     line-height: 1;
 }
+body{
+    //плавный скролл
+    scroll-behavior: smooth;
+}
 
 button,
 select,

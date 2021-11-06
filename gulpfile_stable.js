@@ -1,7 +1,6 @@
 const gulp = require('gulp');
 const del = require('del');
 const gulpPug = require('gulp-pug');
-const gulpPlumber = require('gulp-plumber');
 const gulpSass = require('gulp-sass')(require('sass'));
 const postcss = require('gulp-postcss');
 const babel = require('gulp-babel');
@@ -10,6 +9,9 @@ const terser = require('gulp-terser');
 const gulpIf = require('gulp-if');
 const svgSprite = require('gulp-svg-sprite');
 const svgmin = require('gulp-svgmin');
+const webp = require('gulp-webp');
+const webp_html = require('gulp-webp-html-nosvg');
+// const imagemin = require('gulp-imagemin');
 const cheerio = require('gulp-cheerio');
 const replace = require('gulp-replace');
 const ttf2woff2 = require('gulp-ttf2woff2');
@@ -19,12 +21,13 @@ const sync = require('browser-sync');
 
 const html = () => {
     return gulp.src('src/#pug/layout/index.pug')
-        // .pipe(gulpPlumber())
         .pipe(gulpPug({
             pretty: true   //минификатор
         }))
+        // Подключение webp в html
+        .pipe(webp_html())
         .pipe(replace('src="../../', 'src="'))
-        // .pipe(gulpPlumber.stop())
+        .pipe(replace('srcset="../../', 'srcset="'))
         .pipe(gulp.dest('dist'))
         .pipe(sync.stream());
 };
@@ -35,15 +38,14 @@ exports.html = html;
 
 const styles = () => {
     return gulp.src('src/scss/style.scss')
-        // .pipe(gulpPlumber())
         .pipe(gulpSass())
         .pipe(postcss([
             require('postcss-media-minmax'),
+            require('postcss-webp'),
             require('autoprefixer'),
             require('postcss-sort-media-queries'),
             require('postcss-csso'),
         ]))
-        // .pipe(gulpPlumber.stop())
         .pipe(gulp.dest('dist/css'))
         .pipe(sync.stream());
 };
@@ -54,12 +56,10 @@ exports.styles = styles;
 
 const scripts = () => {
     return gulp.src('src/js/script.js')
-        // .pipe(gulpPlumber())
         .pipe(babel({
             presets: ['@babel/preset-env']
         }))
         .pipe(terser())
-        // .pipe(gulpPlumber.stop())
         .pipe(gulp.dest('dist/js'))
         .pipe(sync.stream());
 };
@@ -84,9 +84,7 @@ const svgSpriteBuild = () => {
             },
             parserOptions: {xmlMode: true}
         }))
-        // cheerio plugin create unnecessary string '&gt;', so replace it.
         .pipe(replace('&gt;', '>'))
-        // build svg sprite
         .pipe(svgSprite({
             mode: {
                 symbol: {
@@ -98,22 +96,40 @@ const svgSpriteBuild = () => {
 
 }
 
-exports.sprite = gulp.series (svgSpriteBuild)
+exports.sprite = gulp.series(svgSpriteBuild)
 
-// Fonts
+// Images
 
-const fonts = () => {
-  return gulp.src('src/fonts/**/*.ttf')
-      .pipe(ttf2woff2())
-      .pipe(gulp.dest('src/fonts/'));
+const images = () => {
+    return gulp.src('src/images/**/*.{jpg,png}')
+        .pipe(webp({
+            quality: 70
+        }))
+        .pipe(gulp.dest('src/images/'))
+        .pipe(gulp.src('src/images/**/*.{jpg,png,svg,webp}'))
+        // .pipe(imagemin(
+        //     [
+        //     imagemin.gifsicle({interlaced: true}),
+        //     imagemin.mozjpeg({quality: 75, progressive: true}),
+        //     imagemin.optipng({optimizationLevel: 5}),
+        //     imagemin.svgo({
+        //         plugins: [
+        //             {removeViewBox: true},
+        //             {cleanupIDs: false}
+        //         ]
+        //     })
+        // ]))
+        .pipe(gulp.dest('dist/images'))
+        .pipe(sync.stream());
 }
+
+exports.images = images;
 
 // Copy
 
 const copy = () => {
     return gulp.src([
-        'src/fonts/**/*.woff2',
-        'src/images/**/*',
+        'src/fonts/**/*.woff2'
     ], {
         base: 'src'
     })
@@ -144,9 +160,10 @@ const watch = () => {
     gulp.watch('src/#pug/**/*.pug', gulp.series(html));
     gulp.watch('src/scss/**/*.scss', gulp.series(styles));
     gulp.watch('src/js/script.js', gulp.series(scripts));
+    gulp.watch('src/images/**/*.{jpg,png,svg}', gulp.series(images));
+    gulp.watch('src/images/svg_sprite/*.svg', gulp.series(svgSpriteBuild));
     gulp.watch([
-        'src/fonts/**/*.woff2',
-        'src/images/**/*',
+        'src/fonts/**/*.woff2'
     ], gulp.series(copy));
 };
 
@@ -159,6 +176,8 @@ exports.default = gulp.series(
         html,
         styles,
         scripts,
+        images,
+        svgSpriteBuild,
         copy,
     ),
     gulp.parallel(
@@ -174,6 +193,14 @@ const clean = () => {
 
 exports.clean = clean;
 
+// Fonts
+
+const fonts = () => {
+    return gulp.src('src/fonts/**/*.ttf')
+        .pipe(ttf2woff2())
+        .pipe(gulp.dest('src/fonts/'));
+}
+exports.fonts = fonts;
 
 //=========================================================================================================
 
@@ -232,118 +259,6 @@ exports.clean = clean;
 // gulp.watch('src/images/sprite/*.svg', gulp.series(svgSpriteBuild));
 // gulp.watch('src/fonts/**/*.ttf', gulp.series(fonts));
 //=========================================================================================================
-// const gulp = require('gulp');
-// const del = require('del');
-// const gulpPug = require('gulp-#pug');
-// const gulpPlumber = require('gulp-plumber');
-// const gulpSass = require('gulp-sass')(require('sass'));
-// const postcss = require('gulp-postcss');
-// const babel = require('gulp-babel');
-// const gulpUglify = require('gulp-uglify');
-// const svgSprite = require('gulp-svg-sprite');
-// const svgmin = require('gulp-svgmin');
-// const cheerio = require('gulp-cheerio');
-// const replace = require('gulp-replace');
-// const sync = require('browser-sync').create();
-
-// function fonts() {
-//     return gulp.src([
-//         'src/fonts/**/*',
-//         'src/images/**/*',
-//     ], {
-//         base: 'src'
-//     })
-//         .pipe(gulp.dest('dist'))
-//         .pipe(sync.stream({
-//             once: true
-//         }));
-// }
-//
-// function pug2html() {
-//     return gulp.src('src/#pug/index/*.#pug')
-//         .pipe(gulpPlumber())
-//         .pipe(gulpPug({
-//             pretty: true   //минификатор
-//         }))
-//         .pipe(gulpPlumber.stop())
-//         .pipe(gulp.dest('dist'))
-//         .pipe(sync.stream());
-// }
-//
-// function scss2css() {
-//     return gulp.src('src/scss/style.scss')
-//         .pipe(gulpPlumber())
-//         .pipe(gulpSass())
-//         .pipe(postcss([
-//             require('postcss-media-minmax'),
-//             require('postcss-sort-media-queries'),
-//             require('autoprefixer'),
-//             // require('postcss-csso'),
-//         ]))
-//         .pipe(gulpPlumber.stop())
-//         .pipe(gulp.dest('dist/css'))
-//         .pipe(sync.stream());
-// }
-//
-// function script() {
-//     return gulp.src('src/js/script.js')
-//         .pipe(gulpPlumber())
-//         .pipe(babel({
-//             presets: ['@babel/preset-env']
-//         }))
-//         .pipe(gulpUglify())
-//         .pipe(gulpPlumber.stop())
-//         .pipe(gulp.dest('dist/js'))
-//         .pipe(sync.stream());
-// }
-//
-// function svgSpriteBuild() {
-//     return gulp.src('src/images/svg/*.svg')
-//         // minify svg
-//         .pipe(svgmin({
-//             js2svg: {
-//                 pretty: true
-//             }
-//         }))
-//         // remove all fill, style and stroke declarations in out shapes
-//         .pipe(cheerio({
-//             run: function ($) {
-//                 $('[fill]').removeAttr('fill');
-//                 $('[stroke]').removeAttr('stroke');
-//                 $('[style]').removeAttr('style');
-//             },
-//             parserOptions: {xmlMode: true}
-//         }))
-//         // cheerio plugin create unnecessary string '&gt;', so replace it.
-//         .pipe(replace('&gt;', '>'))
-//         // build svg sprite
-//         .pipe(svgSprite({
-//             mode: {
-//                 symbol: {
-//                     sprite: "sprite.svg"
-//                 }
-//             }
-//         }))
-//         .pipe(gulp.dest('dist/images/svg/sprite'));
-// }
-//
-// function watch() {
-//     sync.init({
-//         ui: false,
-//         notify: false,
-//         server: {
-//             baseDir: 'dist'
-//         }
-//     });
-//     gulp.watch('src/#pug/**/*.#pug', pug2html);
-//     gulp.watch('src/scss/**/*.scss', scss2css);
-//     gulp.watch('src/js/script.js', script);
-//     gulp.watch('src/images/sprite/*.svg', svgSpriteBuild);
-//     gulp.watch('dist/*.html').on('change', sync.reload);
-// }
-//
-// exports.default = gulp.series(clean, pug2html, scss2css, script, svgSpriteBuild, watch);
-
 
 //==============================================================================================================
 
@@ -479,7 +394,6 @@ exports.clean = clean;
 //     ),
 // );
 //=======================================================================================================
-
 
 
 // Paths
