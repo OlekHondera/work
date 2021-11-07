@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "start": "gulp",
-    "sprite": "gulp sprite",
+    "sprite": "gulp SpriteSVG",
     "clean": "gulp clean"
   },
   "browserslist": [

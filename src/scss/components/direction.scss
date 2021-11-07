@@ -1,0 +1,24 @@
+.direction {
+  padding: 100px 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+
+  &__card {
+
+    &_item {
+
+    }
+
+    &_img {
+      display: block;
+    }
+
+    &_text {
+      line-height: 1.17;
+      padding: 12px 0 19px 19px;
+      border: 1px solid #D9D9DE;
+      border-top: none;
+    }
+  }
+}
