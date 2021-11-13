@@ -134,7 +134,8 @@ export const images = () => {
 export const copy = () => {
     return gulp.src([
         'src/fonts/**/*.woff2',
-        'src/images/**/*.{webp,avif}'
+        'src/images/**/*.{webp,avif}',
+        'src/video/**/*.{webm,mp4}'
     ], {
         base: 'src'
     })
@@ -166,7 +167,8 @@ export const watch = () => {
     // gulp.watch('src/images/svg_sprite/*.svg', gulp.series(SpriteSVG));
     gulp.watch([
         'src/fonts/**/*.woff2',
-        'src/images/**/*.{webp,avif}'
+        'src/images/**/*.{webp,avif}',
+        'src/video/**/*.{webm,mp4}'
     ], gulp.series(copy));
 };
 
