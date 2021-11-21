@@ -2,9 +2,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "gulp",
     "sprite": "gulp SpriteSVG",
-    "clean": "gulp clean"
+    "clean": "gulp clean",
+    "svg4everybody": "gulp svg4everybody",
+    "libs": "gulp libs",
+    "slick": "gulp slick",
+    "jquery": "gulp jquery",
+    "libsCopy": "gulp libsCopy"
   },
   "browserslist": [
     "last 2 version",
@@ -14,18 +18,21 @@
   ],
   "dependencies": {
     "gulp-cli": "^2.3.0",
-    "npm": "^8.1.3",
+    "jquery": "^3.6.0",
+    "npm": "^8.1.4",
     "pug": "^3.0.2",
     "sass": "^1.43.4",
     "slick-carousel": "^1.8.1",
-    "svg4everybody": "^2.1.9"
+    "svg4everybody": "^2.1.9",
+    "swiper": "^7.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
-    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
     "autoprefixer": "^10.4.0",
     "browser-sync": "^2.27.7",
     "del": "^6.0.0",
+    "eslint": "^8.2.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-cheerio": "^1.0.0",
@@ -37,6 +44,7 @@
     "gulp-pug": "^5.0.0",
     "gulp-replace": "^1.1.3",
     "gulp-sass": "^5.0.0",
+    "gulp-sourcemaps": "^3.0.0",
     "gulp-svg-sprite": "^1.5.0",
     "gulp-svgmin": "^4.1.0",
     "gulp-terser": "^2.1.0",
@@ -48,6 +56,7 @@
     "postcss-csso": "^5.0.1",
     "postcss-media-minmax": "^5.0.0",
     "postcss-sort-media-queries": "^4.1.0",
-    "postcss-webp": "^0.0.0"
+    "postcss-webp": "^0.0.0",
+    "prettier": "2.4.1"
   }
 }
