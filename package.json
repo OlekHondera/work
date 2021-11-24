@@ -2,13 +2,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "sprite": "gulp SpriteSVG",
-    "clean": "gulp clean",
-    "svg4everybody": "gulp svg4everybody",
-    "libs": "gulp libs",
-    "slick": "gulp slick",
-    "jquery": "gulp jquery",
-    "libsCopy": "gulp libsCopy"
+    "clean": "gulp clean"
   },
   "browserslist": [
     "last 2 version",
@@ -32,7 +26,7 @@
     "autoprefixer": "^10.4.0",
     "browser-sync": "^2.27.7",
     "del": "^6.0.0",
-    "eslint": "^8.2.0",
+    "eslint": "^8.3.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-cheerio": "^1.0.0",
@@ -50,7 +44,6 @@
     "gulp-terser": "^2.1.0",
     "gulp-ttf2woff2": "^4.0.1",
     "gulp-webp": "^4.0.1",
-    "gulp-webp-html-nosvg": "^1.0.1",
     "laravel-mix": "^6.0.39",
     "postcss": "^8.3.11",
     "postcss-csso": "^5.0.1",

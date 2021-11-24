@@ -15,36 +15,32 @@ import terser from "gulp-terser";
 import svgSprite from "gulp-svg-sprite";
 import svgmin from "gulp-svgmin";
 import webp from "gulp-webp";
-import webp_html from "gulp-webp-html-nosvg";
 import imagemin, { gifsicle, mozjpeg, optipng, svgo } from "gulp-imagemin";
 import cheerio from "gulp-cheerio";
 import replace from "gulp-replace";
 import sync from "browser-sync";
 import sourcemaps from "gulp-sourcemaps";
-import gulpIf from "gulp-if";
-import ttf2woff2 from "gulp-ttf2woff2";
+// import gulpIf from "gulp-if";
+// import ttf2woff2 from "gulp-ttf2woff2";
 
 const realGulpSass = gulpSass(sass);
-// import $ from 'jquery';
 
 // HTML
 
 export const html = () => {
-  return (
-    gulp
-      .src("src/#pug/layout/index.pug")
-      .pipe(
-        gulpPug({
-          pretty: true, //минификатор
-        })
-      )
-      // Подключение webp в html НЕ РАБОТАЕТ!!!!!
-      // .pipe(webp_html())
-      .pipe(replace('src="../../', 'src="'))
-      .pipe(replace('srcset="../../', 'srcset="'))
-      .pipe(gulp.dest("dist"))
-      .pipe(sync.stream())
-  );
+  return gulp
+    .src("src/#pug/layout/index.pug")
+    .pipe(
+      gulpPug({
+        pretty: true,
+      })
+    )
+    .pipe(replace('src="../../', 'src="'))
+    .pipe(replace('href="../../', 'href="'))
+    .pipe(replace('srcset="../../', 'srcset="'))
+    .pipe(replace(", ../../", ", "))
+    .pipe(gulp.dest("dist"))
+    .pipe(sync.stream());
 };
 
 // Styles
@@ -160,7 +156,7 @@ export const watch = () => {
   gulp.watch("src/images/**/*.{jpg,png,svg}", gulp.series(images));
   gulp.watch(
     [
-      "src/fonts/**/*.woff2",
+      "src/fonts/**/*.{woff,woff2}",
       "src/images/**/*.{webp,avif}",
       "src/video/**/*.{webm,mp4}",
     ],
@@ -240,14 +236,6 @@ export const SpriteSVG = () => {
 };
 
 //========================JS Library=============================
-// // Libs
-//
-// export const libs = () => {
-//     // return gulp.src(['./lib/file3.js', './lib/file1.js', './lib/file2.js'])
-//     return gulp.src('node_modules/svg4everybody/dist/svg4everybody.min.js')
-//         .pipe(concat('libs.js'))
-//         .pipe(gulp.dest('src/js/libs'))
-// };
 
 // Svg4EveryBody
 
@@ -259,26 +247,23 @@ export const svg4everybody = () => {
     .pipe(gulp.dest("src/js/libs"));
 };
 
-// Slick Slider
+// Swiper Slider
 
-export const slick = () => {
+export const swiperBundle = () => {
   return gulp
-    .src("node_modules/slick-carousel/slick/slick.js")
-    .pipe(concat("slick.js"))
+    .src("node_modules/swiper/swiper-bundle.js")
+    .pipe(concat("swiperBundle.js"))
     .pipe(gulp.dest("src/js/libs"));
 };
 
-// Swiper Slider
+//Модульное подключение
 
-export const swiper = () => {
-  return (
-    gulp
-      //  Подключаем нужный JS для слайдера
-      .src("node_modules/swiper/modules/")
-      .pipe(concat("swiper.js"))
-      .pipe(gulp.dest("src/js/libs"))
-  );
-};
+// export const swiperPart = () => {
+//   return gulp
+//     .src(["node_modules/swiper/core/core.js", "node_modules/swiper/swiper-bundle.js"])
+//     .pipe(concat("swiperPartials.js"))
+//     .pipe(gulp.dest("src/js/libs"));
+// };
 
 // JQuery
 
@@ -289,10 +274,10 @@ export const jquery = () => {
     .pipe(gulp.dest("src/js/libs"));
 };
 // Clean
-
-export const cleanlibs = () => {
-  return del("src/js/libs");
-};
+//
+// export const cleanlibs = () => {
+//   return del("src/js/libs");
+// };
 
 //
 // export
@@ -300,3 +285,21 @@ export const cleanlibs = () => {
 // gulp.series(
 //     gulp.parallel(cleanlibs, svg4everybody, jquery, slick)
 // );
+
+// // Slick Slider
+//
+// export const slick = () => {
+//   return gulp
+//     .src("node_modules/slick-carousel/slick/slick.js")
+//     .pipe(concat("slick.js"))
+//     .pipe(gulp.dest("src/js/libs"));
+// };
+
+// // Libs
+//
+// export const libs = () => {
+//     // return gulp.src(['./lib/file3.js', './lib/file1.js', './lib/file2.js'])
+//     return gulp.src('node_modules/svg4everybody/dist/svg4everybody.min.js')
+//         .pipe(concat('libs.js'))
+//         .pipe(gulp.dest('src/js/libs'))
+// };
