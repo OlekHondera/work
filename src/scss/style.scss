@@ -1,20 +1,26 @@
-// reset
 @import "reset";
-//fonts
 @import "fonts";
-//variables
 @import "variables";
-//svg
-@import "helpers/sprite";
-//video
-@import "helpers/video";
-//------------------------------------------------------//
+//@import "helpers/sprite";
+//@import "helpers/video";
+//swiper_slider стандарт
+//@import "node_modules/swiper/swiper";
+//подключаем нужные модули для слайдера
+//@import "node_modules/swiper/modules/pagination/pagination";
+//@import "node_modules/swiper/modules/grid/grid";
+//@import "node_modules/swiper/modules/navigation/navigation";
+//magnific_popup
+//@import "helpers/magnific_popup";
+//-----------------------------------------------------//
+html{
+
+}
+
 body {
   background-color: #FFFFFF;
   color: $text-color;
   font-family: "Roboto", sans-serif;
-  //Размер шрифта в % от 10px
-  font-size: 160%;
+  font-size: 16px;
   font-weight: 400;
 
 }
@@ -60,11 +66,7 @@ body {
   flex: 1 1 auto;
 }
 
+//---------Подключаем компоненты-----------------------------
 
-//------------------------------------------------------------
-@import "components/header";
-@import "components/main__top";
-@import "components/direction";
-//
-@import "components/subscribe";
-@import "components/footer";
+//-----------------------------------------------------------
+@import "../components/header/header.scss";

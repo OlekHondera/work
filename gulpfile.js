@@ -1,19 +1,23 @@
 import gulp from "gulp";
 import del from "del";
 import gulpPug from "gulp-pug";
+import plumber from "gulp-plumber";
+import notify from "gulp-notify";
 import gulpSass from "gulp-sass";
 import sass from "sass";
 import postcss from "gulp-postcss";
 import postWebp from "postcss-webp";
 import minmax from "postcss-media-minmax";
 import sortMedia from "postcss-sort-media-queries";
+import postCssO from "postcss-csso";
+import pxToRem from "postcss-pxtorem";
 import autoprefixer from "autoprefixer";
-import postCsso from "postcss-csso";
+// import rename from "gulp-rename";
 import babel from "gulp-babel";
 import concat from "gulp-concat";
 import terser from "gulp-terser";
 import svgSprite from "gulp-svg-sprite";
-import svgmin from "gulp-svgmin";
+import svgMin from "gulp-svgmin";
 import webp from "gulp-webp";
 import imagemin, { gifsicle, mozjpeg, optipng, svgo } from "gulp-imagemin";
 import cheerio from "gulp-cheerio";
@@ -22,7 +26,6 @@ import sync from "browser-sync";
 import sourcemaps from "gulp-sourcemaps";
 // import gulpIf from "gulp-if";
 // import ttf2woff2 from "gulp-ttf2woff2";
-
 const realGulpSass = gulpSass(sass);
 
 // HTML
@@ -31,6 +34,14 @@ export const html = () => {
   return gulp
     .src("src/#pug/layout/index.pug")
     .pipe(
+      plumber({
+        errorHandler: notify.onError((error) => ({
+          title: "Pug",
+          message: error.message,
+        })),
+      })
+    )
+    .pipe(
       gulpPug({
         pretty: true,
       })
@@ -38,6 +49,7 @@ export const html = () => {
     .pipe(replace('src="../../', 'src="'))
     .pipe(replace('href="../../', 'href="'))
     .pipe(replace('srcset="../../', 'srcset="'))
+    .pipe(replace('url("../../', 'url("../'))
     .pipe(replace(", ../../", ", "))
     .pipe(gulp.dest("dist"))
     .pipe(sync.stream());
@@ -47,21 +59,47 @@ export const html = () => {
 
 export const styles = () => {
   return gulp
-    .src("src/scss/style.scss")
+    .src("src/scss/style.scss", { sourcemaps: true })
+    .pipe(
+      plumber({
+        errorHandler: notify.onError((error) => ({
+          title: "Styles",
+          message: error.message,
+        })),
+      })
+    )
     .pipe(realGulpSass())
-    .pipe(replace("url(../../", 'url("../'))
-    .pipe(postcss([minmax, postWebp, autoprefixer, sortMedia, postCsso]))
-    .pipe(gulp.dest("dist/css"))
+    .pipe(replace('url("../../', 'url("../'))
+    .pipe(
+      postcss([minmax, pxToRem, postWebp, autoprefixer, sortMedia, postCssO])
+    )
+    .pipe(gulp.dest("dist/css", { sourcemaps: true }))
     .pipe(sync.stream());
 };
+
+// export const minStyles = () => {
+//   return gulp
+//     .src(["dist/css/*.css"])
+//     .pipe(rename({ suffix: ".min" }))
+//     .pipe(postCssO())
+//     .pipe(gulp.dest("dist/css"));
+// };
 
 // Scripts
 
 export const scripts = () => {
   return (
     gulp
-      .src(["src/js/components/*.js", "src/js/script.js"])
+      .src(["src/components/**/*.js", "src/js/script.js"])
       .pipe(sourcemaps.init())
+      .pipe(
+        plumber({
+          errorHandler: notify.onError((error) => ({
+            title: "Scripts",
+            message: error.message,
+          })),
+        })
+      )
       //ПРИ КОНКАТЕ НЕ РАБОТАЕТ JS!!!!!
       .pipe(concat("main.js"))
       .pipe(gulp.dest("src/js/concat"))
@@ -151,8 +189,11 @@ export const server = () => {
 
 export const watch = () => {
   gulp.watch("src/#pug/**/*.pug", gulp.series(html));
+  gulp.watch("src/components/**/*.pug", gulp.series(html));
   gulp.watch("src/scss/**/*.scss", gulp.series(styles));
+  gulp.watch("src/components/**/*.scss", gulp.series(styles));
   gulp.watch("src/js/script.js", gulp.series(scripts));
+  gulp.watch("src/components/**/*.js", gulp.series(scripts));
   gulp.watch("src/images/**/*.{jpg,png,svg}", gulp.series(images));
   gulp.watch(
     [
@@ -204,7 +245,7 @@ export const SpriteSVG = () => {
       .src("src/images/svg_sprite/*.svg")
       // minify svg
       .pipe(
-        svgmin({
+        svgMin({
           js2svg: {
             pretty: true,
           },

@@ -11,19 +11,19 @@
     "iOS >=12"
   ],
   "dependencies": {
+    "@bem/sdk.config": "^0.1.0",
     "gulp-cli": "^2.3.0",
     "jquery": "^3.6.0",
     "npm": "^8.1.4",
-    "pug": "^3.0.2",
-    "sass": "^1.43.4",
-    "slick-carousel": "^1.8.1",
     "svg4everybody": "^2.1.9",
-    "swiper": "^7.3.0"
+    "swiper": "^7.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
     "autoprefixer": "^10.4.0",
+    "bem-tools-core": "^0.0.3",
+    "bem-tools-create": "^2.3.0",
     "browser-sync": "^2.27.7",
     "del": "^6.0.0",
     "eslint": "^8.3.0",
@@ -34,8 +34,11 @@
     "gulp-gzip": "^1.4.2",
     "gulp-if": "^3.0.0",
     "gulp-imagemin": "^8.0.0",
+    "gulp-notify": "^4.0.0",
+    "gulp-plumber": "^1.2.1",
     "gulp-postcss": "^9.0.1",
     "gulp-pug": "^5.0.0",
+    "gulp-rename": "^2.0.0",
     "gulp-replace": "^1.1.3",
     "gulp-sass": "^5.0.0",
     "gulp-sourcemaps": "^3.0.0",
@@ -44,12 +47,14 @@
     "gulp-terser": "^2.1.0",
     "gulp-ttf2woff2": "^4.0.1",
     "gulp-webp": "^4.0.1",
-    "laravel-mix": "^6.0.39",
-    "postcss": "^8.3.11",
+    "postcss": "^8.4.4",
     "postcss-csso": "^5.0.1",
     "postcss-media-minmax": "^5.0.0",
-    "postcss-sort-media-queries": "^4.1.0",
+    "postcss-pxtorem": "^6.0.0",
+    "postcss-sort-media-queries": "^4.2.1",
     "postcss-webp": "^0.0.0",
-    "prettier": "2.4.1"
+    "prettier": "^2.5.0",
+    "pug": "^3.0.2",
+    "sass": "^1.44.0"
   }
 }
