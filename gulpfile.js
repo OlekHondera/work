@@ -70,8 +70,27 @@ export const styles = () => {
     )
     .pipe(realGulpSass())
     .pipe(replace('url("../../', 'url("../'))
+    .pipe(replace("url(../../", "url(../"))
     .pipe(
-      postcss([minmax, pxToRem, postWebp, autoprefixer, sortMedia, postCssO])
+      postcss([
+        minmax,
+        pxToRem({
+          propList: [
+            "font-size",
+            "max-width",
+            "min-width",
+            "padding",
+            "margin",
+            "width",
+            "height",
+          ],
+          selectorBlackList: [],
+        }),
+        postWebp,
+        autoprefixer,
+        sortMedia,
+        postCssO,
+      ])
     )
     .pipe(gulp.dest("dist/css", { sourcemaps: true }))
     .pipe(sync.stream());
@@ -314,12 +333,11 @@ export const jquery = () => {
     .pipe(concat("jquery.js"))
     .pipe(gulp.dest("src/js/libs"));
 };
-// Clean
-//
-// export const cleanlibs = () => {
-//   return del("src/js/libs");
-// };
 
+// Clean
+// export const cleanlibs = () => {
+//     return del("src/js/libs");
+// };
 //
 // export
 // createLibs

@@ -1,0 +1,19 @@
+header.header._container
+    .header__logo.logo
+        img(src="../../images/logo/ui-design.png", alt="logo" width="40px" height="44px").logo__image
+        p.logo__title Header title
+        p.logo__tagline Description text
+    nav.header__menu.menu
+        button(type="button" aria-label="button" aria-expanded="false" aria-controls="menu__list").menu__button
+            svg.menu__icon(aria-hidden="true" type="image/svg+xml" width="32" height="32")
+                use(href="../../images/menu/sprite.svg#menu").menu__icon--menu
+                use(href="../../images/menu/sprite.svg#cross").menu__icon--cross
+        ul.menu__list#menu__list
+          li.menu__item
+            a(href="#").menu__link.menu__link--active About
+          li.menu__item
+            a.menu__link.menu__link--inactive Portfolio
+          li.menu__item
+            a.menu__link.menu__link--inactive Price
+          li.menu__item
+            a(href="#").menu__link.menu__link--icon Contact as
