@@ -59,7 +59,7 @@ export const html = () => {
 
 export const styles = () => {
   return gulp
-    .src("src/scss/style.scss", { sourcemaps: true })
+    .src("src/scss/*.scss", { sourcemaps: true })
     .pipe(
       plumber({
         errorHandler: notify.onError((error) => ({
