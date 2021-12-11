@@ -1,7 +1,6 @@
-@import "reset";
-@import "fonts";
-@import "variables";
-//@import "helpers/sprite";
+@import "reset.min";
+@import "helpers/fonts";
+@import "helpers/variables";
 //@import "helpers/video";
 //swiper_slider стандарт
 //@import "node_modules/swiper/swiper";
@@ -19,28 +18,32 @@ html{
 body {
   background-color: #FFFFFF;
   color: $text-color;
-  font-family: "Roboto", sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.5;
+  //font-family: "Ubuntu", sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.13;
   //letter-spacing: ;
 
 }
 
 //------------------------------------------------------//
 .wrapper {
-  max-width: 1920px;
+  max-width: 1600px;
   margin: 0 auto;
   min-height: 100%;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+  //display: flex;
+  //flex-direction: column;
 }
 
 ._container {
-  max-width: 1150px;
+  max-width: 1110px;
+  width: 100%;
   padding: 0 15px;
-  //margin: 0 auto;
+  margin: 0 auto;
 }
 
 ._ibg {
@@ -66,10 +69,13 @@ body {
 
 //------Main-------------------------------------------------
 .main {
-  flex: 1 1 auto;
+  //flex: 1 1 auto;
 }
 
 //---------Подключаем компоненты-----------------------------
 
 //-----------------------------------------------------------
-@import "../components/header/header.scss";
+//@import "helpers/header_grid";
+@import "helpers/header_flex";
+//@import "../components/main/_screen/main_screen";
+//@import "../components/footer/footer.scss";

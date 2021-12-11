@@ -1,0 +1,116 @@
+//-- Navbar -->
+nav
+    .container
+        .navbar
+            .logo
+                a(href="#") #freelance
+            .menu
+                .menu__list
+                    .menu__list-item
+                        a(href="#") Портфолио
+                    .menu__list-item
+                        a(href="#") Обо мне
+                    .menu__list-item
+                        a(href="#") Контакты
+        .burger
+            span
+//-- /Navbar -->
+
+//-- Accordion -->
+.accordion
+    .accordion__item
+        .accordion__item-trigger
+            .trigger__num 01
+            .trigger__text Аккордеон триггер
+            .trigger__img
+                span.line1
+                span.line2
+        .accordion__item-content
+            .content__text Какой-то рандомный текст для аккордеона
+
+    .accordion__item
+        .accordion__item-trigger
+            .trigger__num 02
+            .trigger__text Аккордеон триггер
+            .trigger__img
+                span.line1
+                span.line2
+        .accordion__item-content
+            .content__text Какой-то рандомный текст для аккордеона
+
+    .accordion__item
+        .accordion__item-trigger
+            .trigger__num 03
+            .trigger__text Аккордеон триггер
+            .trigger__img
+                span.line1
+                span.line2
+        .accordion__item-content
+            .content__text Какой-то рандомный текст для аккордеона
+
+//-- /Accordion -->
+
+
+//-- Modal -->
+
+.modal__wrapper
+    .modal
+        .modal__close
+            img(src="img/cancel.svg" alt="cancel" width="10px" height="10px")
+        .modal__title Заголовок
+        .modal__body
+a(href="#").btn.modal__btn Открыть
+
+//-- /Modal -->
+
+//-- Phone input -->
+
+input(type="text").phone__input
+
+//-- /Phone input -->
+
+//-- Radio input -->
+
+label.radio__item
+    input(type="radio" name="radio" value="Я - учитель").radio__input
+    span.fake
+    span вы учитель анг. языка
+
+//-- /Radio input -->
+
+//-- Checkbox input -->
+label.checkbox__item
+    input(type="checkbox" name="checkbox" value="Я - учитель").checkbox__input
+    span.fake
+    span вы учитель анг. языка
+
+//-- /Checkbox input -->
+
+//-- Select -->
+#select
+    input(type="hidden" class="hidden__input")
+
+//-- /Select -->
+
+<!-- Smooth Scroll -->
+a(data-scroll href="#bazinga") Anchor Link
+#bazinga bazinga!
+
+
+
+//-- Tabs -->
+.tabs
+    .tabs__header
+        .tabs__header-item.active Вкладка 1
+        .tabs__header-item Вкладка 2
+        .tabs__header-item Вкладка 3
+        .tabs__header-item Вкладка 4
+        .tabs__header-item Вкладка 5
+    .tabs__content
+        .tabs__content-item.tab11
+        .tabs__content-item.tab22
+        .tabs__content-item.tab33
+        .tabs__content-item.tab44
+        .tabs__content-item 5
+
+//-- /Tabs -->

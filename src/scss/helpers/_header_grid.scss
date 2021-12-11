@@ -1,5 +1,6 @@
 //------Header-------------------------------------------------
 .header {
+  //background-color: #1f1e1e;
   padding-top: 16px;
   padding-bottom: 16px;
   display: grid;
@@ -63,10 +64,6 @@
     @media (width <= 736px) {
       display: none;
     }
-    @media (width > 736px) {
-      //align-self: center;
-    }
-
   }
 }
 
@@ -182,4 +179,3 @@
 .menu__button--open .menu__icon--menu {
   display: none;
 }
-

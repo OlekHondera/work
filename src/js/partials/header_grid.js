@@ -1,16 +1,4 @@
 // --------header------------------------------
-// modules.define("header", ["i-bem-dom"], function (provide, bemDom) {
-//   provide(
-//     bemDom.declBlock(this.name, {
-//       onSetMod: {
-//         js: {
-//           inited: function () {},
-//         },
-//       },
-//     })
-//   );
-// });
-
 (() => {
   const menuButton = document.querySelector(".menu__button");
   const menuList = document.querySelector(".menu__list");
@@ -23,4 +11,4 @@
     menuList.classList.toggle("menu__list--open");
   });
 })();
-//--------header------------------------------
+//--------/header------------------------------
