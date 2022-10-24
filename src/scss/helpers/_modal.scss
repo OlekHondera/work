@@ -1,43 +1,69 @@
-// ************************ Модальное окно ************************ //
-// mf
-.modal__wrapper {
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-    display: none;
-        .modal {
-            background: white;
-            padding: 25px;
-            border-radius: 5px;
-            height: 350px;
-            width: 300px;
-                &__title {
-                    text-align: center;
-                }
-                &__close{
-                    cursor: pointer;
-                    display: flex;
-                    justify-content: flex-end;
-                }
-        }
+// Modal
+.modal {
+  max-width: 500px;
+  border: 2px solid #0a001f;
 }
 
-// ************************ Кнопка вызова модального окна ************************ //
-.modal__btn  {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
-    border-radius: 30px;
-    height: 50px;
-    width: 150px;
-    cursor: pointer;
+// Modal button
+
+button.button-modal {
+  padding: 5px 20px;
+  color: #0a001f;
+  background-color: #0fffda;
+  border: 1px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.5s all;
+
+  &:hover {
+    box-shadow: 1px 2px 20px rgba(10, 0, 31, 0.7);
+    //background-color: #0a4b78;
+  }
 }
 
+
+//.modal__wrapper {
+//    position: fixed;
+//    left: 0;
+//  top: 0;
+//  bottom: 0;
+//  right: 0;
+//  background: rgba(0, 0, 0, 0.8);
+//  display: flex;
+//  justify-content: center;
+//  align-items: center;
+//  z-index: 2;
+//  display: none;
+//
+//  .modal {
+//    background: white;
+//    padding: 25px;
+//    border-radius: 5px;
+//    height: 350px;
+//    width: 300px;
+//
+//    &__title {
+//      text-align: center;
+//    }
+//
+//    &__close {
+//      cursor: pointer;
+//      display: flex;
+//      justify-content: flex-end;
+//    }
+//  }
+//}
+//
+//// ************************ Кнопка вызова модального окна ************************ //
+//.modal__btn {
+//  display: flex;
+//  justify-content: center;
+//  align-items: center;
+//  border: 1px solid black;
+//  border-radius: 30px;
+//  height: 50px;
+//  width: 150px;
+//  cursor: pointer;
+//}
+//

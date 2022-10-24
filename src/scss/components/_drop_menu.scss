@@ -1,0 +1,63 @@
+//=======================
+.menu__list {
+  display: flex;
+}
+
+.menu__link {
+  padding: 1em;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: pink;
+  }
+
+  &:focus {
+    outline: none;
+    background-color: yellow;
+  }
+}
+
+//---Если нужно по дизайну, уточнить!!!!
+.menu__item:hover > .menu__link,
+.menu__link:hover {
+  background-color: pink;
+}
+
+//=====================================
+.menu__item {
+  position: relative;
+  padding: 1em;
+}
+
+.menu__item:focus-within > .submenu,
+.menu__item:hover > .submenu {
+  clip: auto;
+  width: auto;
+  height: auto;
+  margin: 0;
+}
+
+.submenu {
+  flex-direction: column;
+  position: absolute;
+  //убирать при вертикальном меню
+  padding-top: 2em;
+  //скрываем правильно!!!)))
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+}
+
+//--------------------Вертикальное меню------------------------
+//
+//.menu__vert {
+//  flex-direction: column;
+//  width: 100px;
+//}
+//
+//.menu__vert .submenu {
+//  top: 0;
+//  left: 100%;
+//
+//}

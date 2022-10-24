@@ -1,11 +1,14 @@
 //-- Modal -->
 
-.modal__wrapper
-    .modal
-        .modal__close
-            img(src="img/cancel.svg" alt="cancel" width="10px" height="10px")
-        .modal__title Заголовок
-        .modal__body
-a(href="#").btn.modal__btn Открыть
+button.button-modal.open-modal Open modal
+
+.modal#modal
+    h2 Поменять заголовок
+    span Текст
+    p текст параграф
+    p текст параграф
+    button.button-modal.close-modal Close modal
+
+    form.form(method="dialog")
 
 //-- /Modal -->

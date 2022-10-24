@@ -1,364 +1,190 @@
 import gulp from "gulp";
-import del from "del";
-import gulpPug from "gulp-pug";
-import plumber from "gulp-plumber";
-import notify from "gulp-notify";
-import gulpSass from "gulp-sass";
-import sass from "sass";
-import postcss from "gulp-postcss";
-import postWebp from "postcss-webp";
-import minmax from "postcss-media-minmax";
-import sortMedia from "postcss-sort-media-queries";
-import postCssO from "postcss-csso";
-import pxToRem from "postcss-pxtorem";
-import autoprefixer from "autoprefixer";
-// import rename from "gulp-rename";
+import sync from "browser-sync";
+import replace from "gulp-replace";
+import cheerio from "gulp-cheerio";
+import svgMin from "gulp-svgmin";
+import svgSprite from "gulp-svg-sprite";
 import babel from "gulp-babel";
 import concat from "gulp-concat";
-import terser from "gulp-terser";
-import svgSprite from "gulp-svg-sprite";
-import svgMin from "gulp-svgmin";
-import webp from "gulp-webp";
-import imagemin, { gifsicle, mozjpeg, optipng, svgo } from "gulp-imagemin";
-import cheerio from "gulp-cheerio";
-import replace from "gulp-replace";
-import sync from "browser-sync";
-import sourcemaps from "gulp-sourcemaps";
-// import gulpIf from "gulp-if";
-// import ttf2woff2 from "gulp-ttf2woff2";
-const realGulpSass = gulpSass(sass);
+import {deleteAsync} from "del";
+import minify from "gulp-uglify";
 
-// HTML
+//task
+import html from "./task/Dev/html.js";
+import htmlBuild from "./task/Build/htmlBuild.js";
+import htmlRename from "./task/Build/htmlRename.js";
+import styles from "./task/Dev/style.js";
+import stylesBuild from "./task/Build/stylesBuild.js";
+import stylesRename from "./task/Build/cssRename.js";
+import scripts from "./task/Dev/scripts.js";
+import scriptsBuild from "./task/Build/scriptsBuild.js";
+import scriptsRename from "./task/Build/scriptsRename.js";
+import minifyImages from "./task/Build/minifyImage.js";
 
-export const html = () => {
-  return gulp
-    .src("src/#pug/layout/index.pug")
-    .pipe(
-      plumber({
-        errorHandler: notify.onError((error) => ({
-          title: "Pug",
-          message: error.message,
-        })),
-      })
-    )
-    .pipe(
-      gulpPug({
-        pretty: true,
-      })
-    )
-    .pipe(replace('src="../../', 'src="'))
-    .pipe(replace('href="../../', 'href="'))
-    .pipe(replace('srcset="../../', 'srcset="'))
-    .pipe(replace('url("../../', 'url("../'))
-    .pipe(replace(", ../../", ", "))
-    .pipe(gulp.dest("dist"))
-    .pipe(sync.stream());
-};
-
-// Styles
-
-export const styles = () => {
-  return gulp
-    .src("src/scss/*.scss", { sourcemaps: true })
-    .pipe(
-      plumber({
-        errorHandler: notify.onError((error) => ({
-          title: "Styles",
-          message: error.message,
-        })),
-      })
-    )
-    .pipe(realGulpSass())
-    .pipe(replace('url("../../', 'url("../'))
-    .pipe(replace("url(../../", "url(../"))
-    .pipe(
-      postcss([
-        minmax,
-        pxToRem({
-          propList: [
-            "font-size",
-            "max-width",
-            "min-width",
-            "padding",
-            "margin",
-            "width",
-            "height",
-          ],
-          selectorBlackList: [],
-        }),
-        postWebp,
-        autoprefixer,
-        sortMedia,
-        postCssO,
-      ])
-    )
-    .pipe(gulp.dest("dist/css", { sourcemaps: true }))
-    .pipe(sync.stream());
-};
-
-// export const minStyles = () => {
-//   return gulp
-//     .src(["dist/css/*.css"])
-//     .pipe(rename({ suffix: ".min" }))
-//     .pipe(postCssO())
-//     .pipe(gulp.dest("dist/css"));
-// };
-
-// Scripts
-
-export const scripts = () => {
-  return (
-    gulp
-      .src(["src/components/**/*.js", "src/js/script.js"])
-      .pipe(sourcemaps.init())
-      .pipe(
-        plumber({
-          errorHandler: notify.onError((error) => ({
-            title: "Scripts",
-            message: error.message,
-          })),
-        })
-      )
-      //ПРИ КОНКАТЕ НЕ РАБОТАЕТ JS!!!!!
-      .pipe(concat("main.js"))
-      .pipe(gulp.dest("src/js/concat"))
-      .pipe(
-        babel({
-          presets: ["@babel/preset-env"],
-        })
-      )
-      .pipe(terser())
-      .pipe(sourcemaps.write("maps"))
-      .pipe(gulp.dest("dist/js"))
-      .pipe(sync.stream())
-  );
-};
-
-// Images
-
-export const images = () => {
-  return gulp
-    .src("src/images/**/*.{jpg,png}")
-    .pipe(
-      webp({
-        quality: 70,
-      })
-    )
-    .pipe(gulp.dest("src/images/"))
-    .pipe(gulp.src("src/images/**/*.{jpg,png,svg}"))
-    .pipe(
-      imagemin([
-        gifsicle({ interlaced: true }),
-        mozjpeg({ quality: 75, progressive: true }),
-        optipng({ optimizationLevel: 5 }),
-        svgo({
-          plugins: [
-            {
-              name: "removeViewBox",
-              active: true,
-            },
-            {
-              name: "cleanupIDs",
-              active: false,
-            },
-          ],
-        }),
-      ])
-    )
-    .pipe(gulp.dest("dist/images"))
-    .pipe(sync.stream());
-};
 
 // Copy
 
-export const copy = () => {
-  return gulp
-    .src(
-      [
-        "src/fonts/**/*.{woff,woff2}",
-        "src/images/**/*.{webp,avif}",
-        "src/video/**/*.{webm,mp4}",
-      ],
-      {
-        base: "src",
-      }
-    )
-    .pipe(gulp.dest("dist"))
-    .pipe(
-      sync.stream({
-        once: true,
-      })
-    );
+const copy = () => {
+    return gulp
+        .src(
+            [
+                "src/fonts/**/*.{woff,woff2}",
+                "src/images/**/*.{webp,avif,jpg,png,svg}",
+                "src/video/**/*.{webm,mp4}",
+            ],
+            {
+                base: "src",
+            }
+        )
+        .pipe(gulp.dest("dist"))
+        .pipe(
+            sync.stream({
+                once: true,
+            })
+        );
 };
 
 // Server
 
-export const server = () => {
-  sync.init({
-    ui: false,
-    notify: false,
-    server: {
-      baseDir: "dist",
-    },
-    browser: "google chrome",
-  });
+const server = () => {
+    sync.init({
+        ui: false,
+        notify: false,
+        server: {
+            baseDir: "dist",
+        },
+        browser: "google chrome",
+    });
 };
 
 // Watch
 
-export const watch = () => {
-  gulp.watch("src/#pug/**/*.pug", gulp.series(html));
-  gulp.watch("src/components/**/*.pug", gulp.series(html));
-  gulp.watch("src/scss/**/*.scss", gulp.series(styles));
-  gulp.watch("src/components/**/*.scss", gulp.series(styles));
-  gulp.watch("src/js/script.js", gulp.series(scripts));
-  gulp.watch("src/components/**/*.js", gulp.series(scripts));
-  gulp.watch("src/images/**/*.{jpg,png,svg}", gulp.series(images));
-  gulp.watch(
-    [
-      "src/fonts/**/*.{woff,woff2}",
-      "src/images/**/*.{webp,avif}",
-      "src/video/**/*.{webm,mp4}",
-    ],
-    gulp.series(copy)
-  );
+const watch = () => {
+    gulp.watch("src/#pug/**/*.pug", gulp.series(html));
+    gulp.watch("src/modules/*.pug", gulp.series(html));
+    gulp.watch("src/scss/main.scss", gulp.series(styles));
+    gulp.watch("src/scss/*.scss", gulp.series(styles));
+    gulp.watch("src/scss/**/*.scss", gulp.series(styles));
+    gulp.watch("src/js/main.js", gulp.series(scripts));
+    gulp.watch("src/js/components/*.js", gulp.series(scripts));
+    gulp.watch("src/images/**/*.{jpg,png,svg}", gulp.series(copy));
+    gulp.watch(
+        [
+            "src/fonts/**/*.{woff,woff2}",
+            "src/images/**/*.{webp,avif}",
+            "src/video/**/*.{webm,mp4}",
+        ],
+        gulp.series(copy)
+    );
 };
-
-//LibsCopy
-
-export const libsCopy = () => {
-  return gulp
-    .src(["src/js/libs/*.js"], {
-      base: "src",
-    })
-    .pipe(
-      babel({
-        presets: ["@babel/preset-env"],
-      })
-    )
-    .pipe(terser())
-    .pipe(gulp.dest("dist"));
-};
-
-// Default
-
-export default gulp.series(
-  gulp.parallel(images, html, styles, scripts, copy, libsCopy),
-  gulp.parallel(watch, server)
-);
-//===============================================================
-
-// Clean
 
 export const clean = () => {
-  return del("dist");
+    return deleteAsync("dist");
 };
 
-//===============================================================
+const dev = gulp.series(html, styles, scripts);
+const build = gulp.series(htmlBuild, stylesBuild, scriptsBuild, minifyImages);
 
-// Sprite
+export default gulp.series(clean,
+    gulp.parallel(dev, copy),
+    gulp.parallel(watch, server))
 
-export const SpriteSVG = () => {
-  return (
-    gulp
-      .src("src/images/svg_sprite/*.svg")
-      // minify svg
-      .pipe(
-        svgMin({
-          js2svg: {
-            pretty: true,
-          },
-        })
-      )
-      // remove all fill, style and stroke declarations in out shapes
-      .pipe(
-        cheerio({
-          run: function ($) {
-            $("[fill]").removeAttribute("fill");
-            $("[stroke]").removeAttribute("stroke");
-            $("[style]").removeAttribute("style");
-          },
-          parserOptions: { xmlMode: true },
-        })
-      )
-      .pipe(replace("&gt;", ">"))
-      .pipe(
-        svgSprite({
-          mode: {
-            symbol: {
-              sprite: "sprite.svg",
-            },
-          },
-        })
-      )
-      .pipe(gulp.dest("dist/images/svg"))
-  );
-};
+export const Build = gulp.series(clean,
+    gulp.parallel(build, copy),
+    gulp.parallel(watch, server))
 
-//========================JS Library=============================
-
-// Svg4EveryBody
+export const minifyBuild = gulp.series(htmlRename, stylesRename, scriptsRename)
+//===============================================================================================================
+//===============================================================================================================
+//===============================================================================================================
 
 export const svg4everybody = () => {
-  // return gulp.src(['./lib/file3.js', './lib/file1.js', './lib/file2.js'])
-  return gulp
-    .src("node_modules/svg4everybody/dist/svg4everybody.min.js")
-    .pipe(concat("svg4everybody.js"))
-    .pipe(gulp.dest("src/js/libs"));
+    // return gulp.src(['./lib/file3.js', './lib/file1.js', './lib/file2.js'])
+    return gulp
+        .src("node_modules/svg4everybody/dist/svg4everybody.min.js")
+        .pipe(concat("svg4everybody.js"))
+        .pipe(gulp.dest("src/js/libs"));
+};
+
+export const SpriteSVG = () => {
+    return (
+        gulp
+            .src("src/images/svg_sprite/*.svg")
+            // minify svg
+            .pipe(
+                svgMin({
+                    js2svg: {
+                        pretty: true,
+                    },
+                })
+            )
+            // remove all fill, style and stroke declarations in out shapes
+            .pipe(
+                cheerio({
+                    run: function ($) {
+                        $("[fill]").removeAttribute("fill");
+                        $("[stroke]").removeAttribute("stroke");
+                        $("[style]").removeAttribute("style");
+                    },
+                    parserOptions: {xmlMode: true},
+                })
+            )
+            .pipe(replace("&gt;", ">"))
+            .pipe(
+                svgSprite({
+                    mode: {
+                        symbol: {
+                            sprite: "sprite.svg",
+                        },
+                    },
+                })
+            )
+            .pipe(gulp.dest("dist/images/svg"))
+    );
 };
 
 // Swiper Slider
 
 export const swiperBundle = () => {
-  return gulp
-    .src("node_modules/swiper/swiper-bundle.js")
-    .pipe(concat("swiperBundle.js"))
-    .pipe(gulp.dest("src/js/libs"));
+    return gulp
+        .src("node_modules/swiper/swiper-bundle.js")
+        .pipe(concat("swiperBundle.js"))
+        .pipe(gulp.dest("src/js/libs"));
 };
 
 //Модульное подключение
-
-// export const swiperPart = () => {
-//   return gulp
-//     .src(["node_modules/swiper/core/core.js", "node_modules/swiper/swiper-bundle.js"])
-//     .pipe(concat("swiperPartials.js"))
-//     .pipe(gulp.dest("src/js/libs"));
-// };
-
-// JQuery
-
-export const jquery = () => {
-  return gulp
-    .src("node_modules/jquery/dist/jquery.min.js")
-    .pipe(concat("jquery.js"))
-    .pipe(gulp.dest("src/js/libs"));
+export const swiperPart = () => {
+    return gulp
+        .src([
+            "node_modules/swiper/core/core.js",
+            // "node_modules/swiper/modules/pagination/pagination.js",
+            "node_modules/swiper/modules/navigation/navigation.js",
+            "node_modules/swiper/modules/grid/grid.js",
+        ])
+        .pipe(concat("swiperPartials.js"))
+        .pipe(gulp.dest("src/js/libs"));
 };
 
-// Clean
-// export const cleanlibs = () => {
-//     return del("src/js/libs");
-// };
-//
-// export
-// createLibs
-// gulp.series(
-//     gulp.parallel(cleanlibs, svg4everybody, jquery, slick)
-// );
+// JQuery
+export const jquery = () => {
+    return gulp
+        .src("node_modules/jquery/dist/jquery.min.js")
+        .pipe(concat("jquery.js"))
+        .pipe(gulp.dest("src/js/libs"));
+};
 
-// // Slick Slider
-//
-// export const slick = () => {
-//   return gulp
-//     .src("node_modules/slick-carousel/slick/slick.js")
-//     .pipe(concat("slick.js"))
-//     .pipe(gulp.dest("src/js/libs"));
-// };
+//LibsCopy
 
-// // Libs
-//
-// export const libs = () => {
-//     // return gulp.src(['./lib/file3.js', './lib/file1.js', './lib/file2.js'])
-//     return gulp.src('node_modules/svg4everybody/dist/svg4everybody.min.js')
-//         .pipe(concat('libs.js'))
-//         .pipe(gulp.dest('src/js/libs'))
-// };
+export const libsCopy = () => {
+    return gulp
+        .src(["src/js/libs/*.js"], {
+            base: "src",
+        })
+        .pipe(
+            babel({
+                presets: ["@babel/preset-env"],
+            })
+        )
+        .pipe(minify())
+        .pipe(gulp.dest("dist"));
+};

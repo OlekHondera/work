@@ -1,0 +1,116 @@
+
+//------Main-------------------------------------------------=========================================
+
+//.title {
+//  color: #f1c232;
+//  text-transform: uppercase;
+//  font-size: 27px;
+//  text-align: center;
+//  font-weight: 700;
+//  letter-spacing: 0.03em;
+//  line-height: 1.2;
+//  @media (width > 700px) {
+//    font-size: 36px;
+//  }
+//}
+
+.pr__title {
+  color: #f1c232;
+  text-transform: uppercase;
+  font-size: 15px;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  @media (width > 374px) {
+    font-size: 18px;
+  }
+  @media (width > 410px) {
+    font-size: 20px;
+  }
+  @media (width > 443px) {
+    font-size: 22px;
+  }
+  @media (width > 499px) {
+    font-size: 25px;
+  }
+  @media (width > 599px) {
+    font-size: 27px;
+  }
+  @media (width > 699px) {
+    font-size: 36px;
+  }
+}
+
+.title-big {
+  color: #0b0b0b;
+}
+
+.text {
+  color: #FFFFFF;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  font-size: 14px;
+  @media (width > 500px) {
+    font-size: 16px;
+  }
+  //@media (width > 1200px) {
+  //  font-size: 18px;
+  //}
+}
+
+.text-yellow {
+  color: #f1c232;
+}
+
+.active {
+  font-weight: 700;
+}
+
+.number {
+  color: #FFFFFF;
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.link {
+  font-size: inherit;
+  color: #f1c232;
+  text-transform: uppercase;
+  text-decoration: underline;
+}
+.mail-phone {
+  font-size: 20px;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 3vw;
+  @media (width <= 374px) {
+    font-size: 16px;
+  }
+  //z-index: 15;
+  @media (width > 1200px) {
+    font-size: 24px;
+  }
+  @media (width > 1700px) {
+    font-size: 32px;
+  }
+}
+
+.mail-phone_phone {
+  margin-bottom: 10px;
+
+  &:hover {
+    color: #f1c232;
+  }
+}
+
+.mail-phone_mail {
+  &:hover {
+    color: #f1c232;
+  }
+}
