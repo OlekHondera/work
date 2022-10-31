@@ -65,7 +65,7 @@ const watch = () => {
     gulp.watch("src/scss/main.scss", gulp.series(styles));
     gulp.watch("src/scss/*.scss", gulp.series(styles));
     gulp.watch("src/scss/**/*.scss", gulp.series(styles));
-    gulp.watch("src/js/main.js", gulp.series(scripts));
+    gulp.watch("src/js/index.js", gulp.series(scripts));
     gulp.watch("src/js/components/*.js", gulp.series(scripts));
     gulp.watch("src/images/**/*.{jpg,png,svg}", gulp.series(copy));
     gulp.watch(
