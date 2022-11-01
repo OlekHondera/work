@@ -8,7 +8,7 @@ import sync from "browser-sync";
 const scripts = () => {
     return (
         gulp.src([
-            "src/js/index.js",
+            "#src/js/index.js",
         ])
             .pipe(esbuild({
                     outfile: 'index.js',

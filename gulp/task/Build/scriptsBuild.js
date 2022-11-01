@@ -4,7 +4,7 @@ import esbuild from "gulp-esbuild";
 const scriptsBuild = () => {
     return (
         gulp.src([
-            "src/js/index.js",
+            "#src/js/index.js",
         ])
             .pipe(esbuild({
                     outfile: 'index.js',

@@ -13,7 +13,7 @@ import sync from "browser-sync";
 
 const styles = () => {
     return gulp
-        .src("src/scss/main.scss", {sourcemaps: true})
+        .src("#src/scss/main.scss", {sourcemaps: true})
         .pipe(
             plumber({
                 errorHandler: notify.onError((error) => ({

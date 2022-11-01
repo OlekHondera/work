@@ -5,7 +5,7 @@ import gulpPug from "gulp-pug";
 import replace from "gulp-replace";
 
 const htmlBuild = () => {
-    return gulp.src("src/#pug/pages/index.pug")
+    return gulp.src("#src/#pug/pages/index.pug")
         //Много файлов
         // return gulp.src("src/#pug/pages/*.pug")
         .pipe(

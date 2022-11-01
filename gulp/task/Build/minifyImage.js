@@ -5,14 +5,14 @@ import imagemin, {gifsicle, mozjpeg, optipng, svgo} from "gulp-imagemin";
 
 const minifyImages = () => {
     return gulp
-        .src("src/images/**/*.{jpg}")
+        .src("#src/images/**/*.{jpg}")
         .pipe(
             webp({
                 quality: 70,
             })
         )
-        .pipe(gulp.dest("src/images/"))
-        .pipe(gulp.src("src/images/**/*.{jpg,png,svg}"))
+        .pipe(gulp.dest("#src/images/"))
+        .pipe(gulp.src("#src/images/**/*.{jpg,png,svg}"))
         .pipe(
             imagemin([
                 gifsicle({interlaced: true}),

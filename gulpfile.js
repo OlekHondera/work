@@ -10,16 +10,16 @@ import {deleteAsync} from "del";
 import minify from "gulp-uglify";
 
 //task
-import html from "./task/Dev/html.js";
-import htmlBuild from "./task/Build/htmlBuild.js";
-import htmlRename from "./task/Build/htmlRename.js";
-import styles from "./task/Dev/style.js";
-import stylesBuild from "./task/Build/stylesBuild.js";
-import stylesRename from "./task/Build/cssRename.js";
-import scripts from "./task/Dev/scripts.js";
-import scriptsBuild from "./task/Build/scriptsBuild.js";
-import scriptsRename from "./task/Build/scriptsRename.js";
-import minifyImages from "./task/Build/minifyImage.js";
+import html from "./gulp/task/Dev/html.js";
+import htmlBuild from "./gulp/task/Build/htmlBuild.js";
+import htmlRename from "./gulp/task/Build/htmlRename.js";
+import styles from "./gulp/task/Dev/style.js";
+import stylesBuild from "./gulp/task/Build/stylesBuild.js";
+import stylesRename from "./gulp/task/Build/cssRename.js";
+import scripts from "./gulp/task/Dev/scripts.js";
+import scriptsBuild from "./gulp/task/Build/scriptsBuild.js";
+import scriptsRename from "./gulp/task/Build/scriptsRename.js";
+import minifyImages from "./gulp/task/Build/minifyImage.js";
 
 
 // Copy
@@ -28,12 +28,12 @@ const copy = () => {
     return gulp
         .src(
             [
-                "src/fonts/**/*.{woff,woff2}",
-                "src/images/**/*.{webp,avif,jpg,png,svg}",
-                "src/video/**/*.{webm,mp4}",
+                "#src/fonts/**/*.{woff,woff2}",
+                "#src/images/**/*.{webp,avif,jpg,png,svg}",
+                "#src/video/**/*.{webm,mp4}",
             ],
             {
-                base: "src",
+                base: "#src",
             }
         )
         .pipe(gulp.dest("dist"))
@@ -60,22 +60,22 @@ const server = () => {
 // Watch
 
 const watch = () => {
-    gulp.watch("src/#pug/**/*.pug", gulp.series(html));
-    gulp.watch("src/modules/*.pug", gulp.series(html));
-    gulp.watch("src/scss/main.scss", gulp.series(styles));
-    gulp.watch("src/scss/*.scss", gulp.series(styles));
-    gulp.watch("src/scss/**/*.scss", gulp.series(styles));
-    gulp.watch("src/js/index.js", gulp.series(scripts));
-    gulp.watch("src/js/components/*.js", gulp.series(scripts));
-    gulp.watch("src/components/*.pug", gulp.series(html));
-    gulp.watch("src/components/*.scss", gulp.series(styles));
-    gulp.watch("src/components/*.js", gulp.series(scripts));
-    gulp.watch("src/images/**/*.{jpg,png,svg}", gulp.series(copy));
+    gulp.watch("#src/#pug/**/*.pug", gulp.series(html));
+    gulp.watch("#src/modules/*.pug", gulp.series(html));
+    gulp.watch("#src/scss/main.scss", gulp.series(styles));
+    gulp.watch("#src/scss/*.scss", gulp.series(styles));
+    gulp.watch("#src/scss/**/*.scss", gulp.series(styles));
+    gulp.watch("#src/js/index.js", gulp.series(scripts));
+    gulp.watch("#src/js/components/*.js", gulp.series(scripts));
+    gulp.watch("#src/components/*.pug", gulp.series(html));
+    gulp.watch("#src/components/*.scss", gulp.series(styles));
+    gulp.watch("#src/components/*.js", gulp.series(scripts));
+    gulp.watch("#src/images/**/*.{jpg,png,svg}", gulp.series(copy));
     gulp.watch(
         [
-            "src/fonts/**/*.{woff,woff2}",
-            "src/images/**/*.{webp,avif}",
-            "src/video/**/*.{webm,mp4}",
+            "#src/fonts/**/*.{woff,woff2}",
+            "#src/images/**/*.{webp,avif}",
+            "#src/video/**/*.{webm,mp4}",
         ],
         gulp.series(copy)
     );
@@ -112,7 +112,7 @@ export const svg4everybody = () => {
 export const SpriteSVG = () => {
     return (
         gulp
-            .src("src/images/svg_sprite/*.svg")
+            .src("#src/images/svg_sprite/*.svg")
             // minify svg
             .pipe(
                 svgMin({
@@ -152,7 +152,7 @@ export const swiperBundle = () => {
     return gulp
         .src("node_modules/swiper/swiper-bundle.js")
         .pipe(concat("swiperBundle.js"))
-        .pipe(gulp.dest("src/js/libs"));
+        .pipe(gulp.dest("#src/js/libs"));
 };
 
 //Модульное подключение
@@ -165,7 +165,7 @@ export const swiperPart = () => {
             "node_modules/swiper/modules/grid/grid.js",
         ])
         .pipe(concat("swiperPartials.js"))
-        .pipe(gulp.dest("src/js/libs"));
+        .pipe(gulp.dest("#src/js/libs"));
 };
 
 // JQuery
@@ -173,15 +173,15 @@ export const jquery = () => {
     return gulp
         .src("node_modules/jquery/dist/jquery.min.js")
         .pipe(concat("jquery.js"))
-        .pipe(gulp.dest("src/js/libs"));
+        .pipe(gulp.dest("#src/js/libs"));
 };
 
 //LibsCopy
 
 export const libsCopy = () => {
     return gulp
-        .src(["src/js/libs/*.js"], {
-            base: "src",
+        .src(["#src/js/libs/*.js"], {
+            base: "#src",
         })
         .pipe(
             babel({

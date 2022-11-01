@@ -8,7 +8,7 @@ import sync from "browser-sync";
 
 const html = () => {
     //Один файл
-    return gulp.src("src/#pug/pages/index.pug")
+    return gulp.src("#src/#pug/pages/index.pug")
     //Много файлов
     // return gulp.src("src/#pug/pages/*.pug")
         .pipe(

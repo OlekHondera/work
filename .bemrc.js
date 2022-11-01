@@ -16,7 +16,7 @@ module.exports = {
                 create: {
                 techs: ['pug', 'scss', 'js'],
                     levels: {
-                        'src/components': {
+                        '#src/components': {
                             default: true
                         }
                     }
