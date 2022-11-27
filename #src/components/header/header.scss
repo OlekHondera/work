@@ -1,0 +1,195 @@
+//------Header-------------------------------------------------
+.header {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  justify-content: space-between;
+  position: fixed;
+  z-index: 11;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: saturate(180%) blur(20px);
+  @media (width > 736px) {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    grid-template-columns: 1fr max-content;
+    justify-content: space-between;
+  }
+
+  // .header__menu
+  &__menu {
+    @media (width <= 736px) {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+    }
+    @media (width > 736px) {
+      align-self: center;
+    }
+  }
+}
+
+.header__link {
+  display: block;
+  margin: 0 auto;
+  z-index: 3;
+  height: 100%;
+  @media (width > 736px) {
+    display: none;
+  }
+}
+
+.header__title {
+  color: #f1c232;
+  margin: 0 auto;
+  font-size: 20px;
+  text-transform: uppercase;
+  @media (width > 736px) {
+    display: none;
+  }
+}
+
+
+//------Menu-------------------------------------------------
+.menu {
+  @media (width <= 736px) {
+    display: grid;
+
+  }
+  // .menu__button
+  &__button {
+    @media (width <= 736px) {
+      background-color: transparent;
+      margin-top: 6px;
+      justify-self: start;
+      z-index: 1;
+    }
+    @media (width > 736px) {
+      display: none;
+    }
+  }
+
+  // .menu__icon
+  &__icon {
+    stroke: #f1c232;
+    //fill: #FFFFFF;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  // .menu__icon--menu
+  &__icon--menu {
+    display: block;
+  }
+
+  // .menu__icon--cross
+  &__icon--cross {
+    //width: 20px;
+    //height: 20px;
+    display: none;
+  }
+
+  // .menu__list
+  &__list {
+    @media (width <= 736px) {
+      display: none;
+      row-gap: 12px;
+      padding: 12px 0 24px 54px;
+      background-color: rgba(0, 0, 0, 0.9);
+      backdrop-filter: saturate(180%) blur(20px);
+      box-shadow: 0 50vh 0 50vh rgb(0, 0, 0, 0.9);
+    }
+    @media (width > 736px) {
+      display: grid;
+      grid-auto-flow: column;
+      justify-content: space-between;
+      column-gap: 8px;
+    }
+  }
+
+  &__list--open {
+    @media (width <= 736px) {
+      display: grid;
+    }
+  }
+
+  // .menu__item
+  &-item {
+    color: #FFFFFF;
+    font-size: 20px;
+
+    &:visited {
+      font-weight: 700;
+    }
+
+    &:hover {
+      color: #f1c232;
+      transition: 0.3s ease-in-out;
+    }
+
+    @media (width > 730px) {
+      font-size: 14px;
+    }
+    @media (width > 760px) {
+      font-size: 16px;
+    }
+  }
+
+  &__link--active {
+    &:hover {
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #f1c232;
+    }
+  }
+}
+
+.menu__icon--menu,
+.menu__button--open .menu__icon--cross {
+  display: block;
+}
+
+.menu__icon--cross,
+.menu__button--open .menu__icon--menu {
+  display: none;
+}
+
+.menu-item-21 {
+  position: relative;
+  @media (width > 736px) {
+    margin-left: 24px;
+  }
+
+  //&:before {
+  //  //content: url("/wp-content/themes/dober-agency/assets/images/svg/fire.png");
+  //  position: absolute;
+  //  width: 18px;
+  //  height: 18px;
+  //  top: -3px;
+  //  left: -30px;
+  //  @media (width <= 736px) {
+  //    top: 1px;
+  //    left: 140px;
+  //  }
+  //}
+}
+
+.menu-item-24 {
+  color: #f1c232;
+  //font-size: 14px;
+  font-weight: 700;
+  margin-right: 50px;
+  @media (width > 500px) {
+    //font-size: 16px;
+  }
+}
+.menu-item-25 {
+  @media (width > 730px) {
+    display: none;
+  }
+}

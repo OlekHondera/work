@@ -7,16 +7,15 @@
   "browserslist": [
     "last 2 version",
     "> 1%",
-    "maintaned node version",
     "not dead"
   ],
   "dependencies": {
     "@bem/sdk.config": "^0.1.0",
     "gulp-cli": "^2.3.0",
     "jquery": "^3.6.1",
-    "npm": "^9.1.1",
+    "npm": "^9.1.2",
     "svg4everybody": "^2.1.9",
-    "swiper": "^8.4.4",
+    "swiper": "^8.4.5",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
@@ -27,7 +26,7 @@
     "bem-tools-create": "^2.3.0",
     "browser-sync": "^2.27.10",
     "del": "^7.0.0",
-    "eslint": "^8.27.0",
+    "eslint": "^8.28.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-cheerio": "^1.0.0",
@@ -54,7 +53,7 @@
     "postcss-pxtorem": "^6.0.0",
     "postcss-sort-media-queries": "^4.3.0",
     "postcss-webp": "^0.0.0",
-    "prettier": "^2.7.1",
+    "prettier": "^2.8.0",
     "pug": "^3.0.2",
     "sass": "^1.56.1"
   }

@@ -4,6 +4,7 @@ body {
   //background-color: #000000;
   //  color: #000000;
 }
+
 .wrapper {
   //max-width: 1920px;
   //margin: 0 auto;
@@ -53,4 +54,29 @@ body {
 //        object-position: right;
 //    }
 //}
+.visually-hidden:not(:focus):not(:active) {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  height: 1px;
+  width: 1px;
+}
 
+
+
+
+//Light/Dark Color Scheme
+
+//@media (prefers-color-scheme: light) {
+//  :root {
+//    color: #213547;
+//    background-color: #ffffff;
+//  }
+//  a:hover {
+//    color: #747bff;
+//  }
+//  button {
+//    background-color: #f9f9f9;
+//  }

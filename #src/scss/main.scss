@@ -1,6 +1,6 @@
 @import "reset";
-@import "fonts";
-@import "variables";
+//@import "fonts";
+//@import "variables";
 @import "global";
 //-------------------------------------------------------------------
 
@@ -15,7 +15,7 @@
 //====================================================================
 //--------------------------Компоненты------------------------------//
 //@import "helpers/base";
-//@import "components/header";
+@import "../components/header/header.scss";
 //@import "helpers/main";
 //@import "helpers/modal";
 //@import "helpers/pageslider";
