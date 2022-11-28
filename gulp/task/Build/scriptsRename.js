@@ -1,4 +1,5 @@
 import gulp from "gulp";
+import esbuild from "gulp-esbuild";
 import rename from "gulp-rename";
 import babel from "gulp-babel";
 import minify from "gulp-uglify"
@@ -7,14 +8,12 @@ import minify from "gulp-uglify"
 const scriptsRename = () => {
     return (
         gulp
-            .src("dist/js/*.js")
-            .pipe(
-                babel({
-                    presets: ["@babel/preset-env"],
+            .src("dist/js/main.js")
+            .pipe(esbuild({
+                    outfile: 'main.min.js',
+                    minify: true,
                 })
             )
-            .pipe(minify())
-            .pipe(rename({suffix: ".min"}))
             .pipe(gulp.dest("dist/js/"))
     );
 };

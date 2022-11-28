@@ -19,7 +19,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.2",
+    "@babel/core": "^7.20.5",
     "@babel/preset-env": "^7.20.2",
     "autoprefixer": "^10.4.13",
     "bem-tools-core": "^0.0.3",

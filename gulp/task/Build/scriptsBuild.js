@@ -3,18 +3,14 @@ import esbuild from "gulp-esbuild";
 
 const scriptsBuild = () => {
     return (
-        gulp.src([
-            "#src/js/index.js",
-        ])
+        gulp.src("#src/js/index.js")
             .pipe(esbuild({
-                    outfile: 'index.js',
+                    outfile: 'main.js',
                     bundle: true,
                     treeShaking: true,
-                    // minify: true,
                     sourcemap: true,
                 })
             )
-            //.babel!!!!!!!! ДОДЕЛАТЬ!!!!!!
             .pipe(gulp.dest("dist/js"))
     )
 }

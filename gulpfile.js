@@ -91,11 +91,7 @@ export default gulp.series(clean,
     gulp.parallel(dev, copy),
     gulp.parallel(watch, server))
 
-export const Build = gulp.series(clean,
-    gulp.parallel(build, copy),
-    gulp.parallel(watch, server))
-
-export const minifyBuild = gulp.series(htmlRename, stylesRename, scriptsRename)
+export const Build = gulp.series(clean,build, copy, stylesRename, scriptsRename)
 //===============================================================================================================
 //===============================================================================================================
 //===============================================================================================================

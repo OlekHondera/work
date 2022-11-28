@@ -18,6 +18,7 @@ const htmlBuild = () => {
         )
         .pipe(
             gulpPug({
+                //minify
                 pretty: false,
             })
         )

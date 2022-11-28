@@ -11,7 +11,7 @@ const scripts = () => {
             "#src/js/index.js",
         ])
             .pipe(esbuild({
-                    outfile: 'index.js',
+                    outfile: 'main.js',
                     bundle: true,
                     treeShaking: true,
                     sourcemap: true,
