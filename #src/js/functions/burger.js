@@ -1,6 +1,6 @@
 import { disableScroll } from '../functions/disable-scroll';
 import { enableScroll } from '../functions/enable-scroll';
-import vars from '../_vars';
+import vars from '../_vars.js';
 import { elementHeight } from '../functions/customFunctions';
 
 

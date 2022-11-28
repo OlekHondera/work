@@ -1,4 +1,4 @@
-import _vars from '../_vars';
+import _vars from '../_vars.js';
 import '../vendor/lightbox';
 import '../vendor/lg-video';
 

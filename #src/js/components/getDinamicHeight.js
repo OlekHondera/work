@@ -1,4 +1,4 @@
-import vars from '../_vars';
+import vars from '../_vars.js';
 import { elementHeight } from '../functions/customFunctions';
 
 elementHeight(vars.header, "header-height");

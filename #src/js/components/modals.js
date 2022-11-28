@@ -1,4 +1,4 @@
-import vars from '../_vars';
+import vars from '../_vars.js';
 import { disableScroll } from '../functions/disable-scroll';
 import { enableScroll } from '../functions/enable-scroll';
 import { removeClassInArray,addCustomClass, removeCustomClass } from "../functions/customFunctions";

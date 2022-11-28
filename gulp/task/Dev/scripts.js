@@ -8,16 +8,19 @@ import sync from "browser-sync";
 const scripts = () => {
     return (
         gulp.src([
+            // "#src/js/index.js"
+            // many js
             "#src/js/index.js",
+            "#src/js/test.js"
         ])
             .pipe(esbuild({
-                    outfile: 'main.js',
+                    outbase: '#src',
                     bundle: true,
                     treeShaking: true,
                     sourcemap: true,
                 })
             )
-            .pipe(gulp.dest("dist/js"))
+            .pipe(gulp.dest("dist"))
             .pipe(sync.stream())
     )
 }

@@ -19,13 +19,13 @@
 // import './functions/fix-fullheight';
 
 // Реализация бургер-меню
-import { burger } from './functions/burger';
+import { burger } from './functions/burger.js';
 
 // Реализация остановки скролла (не забудьте вызвать функцию)
-import { disableScroll } from './functions/disable-scroll';
+import { disableScroll } from './functions/disable-scroll.js';
 
 // Реализация включения скролла (не забудьте вызвать функцию)
-import { enableScroll } from './functions/enable-scroll';
+import { enableScroll } from './functions/enable-scroll.js';
 
 
 // Подключение плагина кастом-скролла
