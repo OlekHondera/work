@@ -12,7 +12,6 @@ import minify from "gulp-uglify";
 //task
 import html from "./gulp/task/Dev/html.js";
 import htmlBuild from "./gulp/task/Build/htmlBuild.js";
-import htmlRename from "./gulp/task/Build/htmlRename.js";
 import styles from "./gulp/task/Dev/style.js";
 import stylesBuild from "./gulp/task/Build/stylesBuild.js";
 import stylesRename from "./gulp/task/Build/cssRename.js";
