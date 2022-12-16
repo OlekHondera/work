@@ -41,7 +41,18 @@ const copy = () => {
 			})
 		)
 }
-
+const copyFavicon = () => {
+	return gulp
+		.src(['#src/*.{ico,png,svg,xml,webmanifest}'], {
+			base: '#src'
+		})
+		.pipe(gulp.dest('dist'))
+		.pipe(
+			sync.stream({
+				once: true
+			})
+		)
+}
 // Server
 
 const server = () => {
@@ -67,6 +78,7 @@ const watch = () => {
 	gulp.watch('#src/js/index.js', gulp.series(scripts))
 	gulp.watch('#src/components/**/*.js', gulp.series(scripts))
 	gulp.watch('#src/js/components/*.js', gulp.series(scripts))
+	gulp.watch('#src/*.{ico,png,svg,xml,webmanifest}', gulp.series(copyFavicon))
 	gulp.watch('#src/images/**/*.{jpg,png,svg}', gulp.series(copy))
 	gulp.watch(
 		[
@@ -82,8 +94,14 @@ export const clean = () => {
 	return deleteAsync('dist')
 }
 
-const dev = gulp.series(html, styles, scripts)
-const build = gulp.series(htmlBuild, stylesBuild, scriptsBuild, minifyImages)
+const dev = gulp.series(html, styles, scripts, copyFavicon)
+const build = gulp.series(
+	htmlBuild,
+	stylesBuild,
+	scriptsBuild,
+	minifyImages,
+	copyFavicon
+)
 
 export default gulp.series(
 	clean,
