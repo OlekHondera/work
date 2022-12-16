@@ -8,10 +8,10 @@ import sync from 'browser-sync'
 const scripts = () => {
 	return gulp
 		.src([
-			// "#src/js/index.js"
+			'#src/js/index.js'
 			// many js
-			'#src/js/index.js',
-			'#src/js/test.js'
+			// '#src/js/index.js',
+			// '#src/js/test.js'
 		])
 		.pipe(
 			esbuild({
