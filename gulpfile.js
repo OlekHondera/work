@@ -28,7 +28,7 @@ const copy = () => {
 			[
 				'#src/fonts/**/*.{woff,woff2}',
 				'#src/images/**/*.{webp,avif,jpg,png,svg}',
-				'#src/video/**/*.{webm,mp4}'
+				'#src/video/**/*.{webm,mp4,av1}'
 			],
 			{
 				base: '#src'
@@ -84,7 +84,7 @@ const watch = () => {
 		[
 			'#src/fonts/**/*.{woff,woff2}',
 			'#src/images/**/*.{webp,avif}',
-			'#src/video/**/*.{webm,mp4}'
+			'#src/video/**/*.{webm,mp4,av1}'
 		],
 		gulp.series(copy)
 	)
